@@ -1,30 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 // Getting Hooks for functional component, while States is used for class components
 import Square from './Square'
 
-const Board = () => {
-
-    // (Hooks) useState returns a pair, the current state value and a function, that lets you change the state.
-    // useState takes one argument, which is the initial value of the state.
-    const [ board, setBoard ] = useState( Array(9).fill(null) );
-    const [ isXnext, setIsXNext ] = useState(false);
-
-    const handleSquareClick = position => {
-        if( board[position] ){
-            return;
-        }
-
-        
-        setBoard( (prev)=>{
-            return prev.map( (square, pos)=>{
-                if( pos === position){
-                    return isXnext ? "X" : "O";
-                }
-                return square;
-            })
-        })
-        setIsXNext ( prev => !prev );
-    }
+const Board = ( {board, handleSquareClick} ) => {
 
     const renderSquare = (position)=>{
         return <Square value={board[position]} onClick = {()=> handleSquareClick(position)}/>
@@ -54,4 +32,4 @@ const Board = () => {
     )
 }
 
-export default Board
+export default Board;
