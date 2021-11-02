@@ -6,7 +6,7 @@ const Square = ({value, onClick}) => {
 
         // event = onCLick, handler its function. 
         <button type="button" className="square" onClick={ onClick }>
-            {value}
+        {value}
         </button>
     )
    

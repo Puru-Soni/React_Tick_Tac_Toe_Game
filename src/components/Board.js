@@ -27,7 +27,6 @@ const Board = ( {board, handleSquareClick} ) => {
                 { renderSquare(7) }
                 { renderSquare(8) } 
             </div>
-
         </div>
     )
 }
