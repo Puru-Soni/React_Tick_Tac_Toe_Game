@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Board from "./components/Board"; 
 import History from './components/History'
+import StatusMsg from "./components/StatusMsg";
 import { calculateWinner } from "./helper";
 
 import "./styles/root.scss";
@@ -20,10 +21,6 @@ const App = () => {
 
     // winner calculation
     const winner = calculateWinner(currGameState.board);
-
-    // Win message
-    const message = winner ? `Winner is ${winner}` 
-    : `Next Player is ${ currGameState.isXnext ? "X": "O" }`;
 
   // Function for handling onClick event at position.
     const handleSquareClick = (position) => {
@@ -58,7 +55,7 @@ const App = () => {
   return(
   <div className="app">
     <h1>TIC TAC TOE</h1>
-    <h2>{ message }</h2>
+    <StatusMsg winner={winner} currGameState={currGameState} />
     <Board board={currGameState.board} handleSquareClick={handleSquareClick} />
     <History history={history} moveTo={moveTo} currentMove={currentMove} />
   </div>
