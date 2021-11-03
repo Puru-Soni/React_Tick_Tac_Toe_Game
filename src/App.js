@@ -7,50 +7,32 @@ import { calculateWinner } from "./helper";
 import "./styles/root.scss";
 
 const App = () => {
-    // (Hooks) useState returns a pair, the current state value and a function, that lets you change the state.
-    // useState takes one argument, which is the initial value of the state.
-    
-    // Keeping track of history, hooks
-    const [ history, setHistory ] = useState([{board : Array(9).fill(null), isXnext : true}]);
 
-    // Track of moves/ steps
-    const [currentMove, setCurrentMove] = useState(0);
+  const [ history, setHistory ] = useState([{board : Array(9).fill(null), isXnext : true}]);
+  const [currentMove, setCurrentMove] = useState(0);
 
-    // Track of game state
-    const currGameState = history[currentMove];
+  const currGameState = history[currentMove];
+  const winner = calculateWinner(currGameState.board);
 
-    // winner calculation
-    const winner = calculateWinner(currGameState.board);
+  const handleSquareClick = (position) => {
+    if( currGameState.board[position] || winner ) return ;
 
-  // Function for handling onClick event at position.
-    const handleSquareClick = (position) => {
-        
-      // board[position] is not null, i.e their is a X or O, hence onClick event terminates.
-      // If we have a winner, winner !== null, exit the game.
-      if( currGameState.board[position] || winner ) return ;
-
-      // setBoard useState function, update old/previous array to new array on based of onClick event.
-      setHistory( (prev)=>{
-          const last = prev[prev.length - 1];
-
-          const newBoard = last.board.map( (square, posi)=>{
-            // if index of currGameState square = position at which onClick event happened, run.
-            if( posi === position ){
-              return last.isXnext ? "X" : "O";
-            }
-            // else return nothing no updates.
-            return square;
-        })
-        return prev.concat({board: newBoard, isXnext: !last.isXnext})
+    setHistory( (prev)=>{
+        const last = prev[prev.length - 1];
+        const newBoard = last.board.map( (square, posi)=>{
+          if( posi === position ){
+            return last.isXnext ? "X" : "O";
+          }
+          return square;
       })
-        // Changing the prev index of current game state.
-        setCurrentMove(prev => prev+1);
-    }
+      return prev.concat({board: newBoard, isXnext: !last.isXnext})
+    })
+      setCurrentMove(prev => prev+1);
+  }
 
-
-    const moveTo = (move)=>{
-      setCurrentMove(move);
-    }
+  const moveTo = (move)=>{
+    setCurrentMove(move);
+  }
 
   return(
   <div className="app">
