@@ -2,10 +2,13 @@ import React from 'react'
 // Getting Hooks for functional component, while States is used for class components
 import Square from './Square'
 
-const Board = ( {board, handleSquareClick} ) => {
+const Board = ( {board, handleSquareClick , winningSquare} ) => {
 
     const renderSquare = (position)=>{
-        return <Square value={board[position]} onClick = {()=> handleSquareClick(position)}/>
+
+        const isWinningSquare = winningSquare.includes(position);
+
+        return <Square value={board[position]} onClick = {()=> handleSquareClick(position)} isWinningSquare={isWinningSquare}/>
     }
 
     return (
